@@ -2,8 +2,8 @@
 //  PhotoPickerTests.swift
 //  PhotoPickerTests
 //
-//  Created by David Schreiber on 6/29/15.
-//  Copyright (c) 2015 David Schreiber. All rights reserved.
+//  Created by Metebelis Labs LLC on 6/29/15.
+//  Copyright (c) 2015 Metebelis Labs LLC. All rights reserved.
 //
 
 import UIKit

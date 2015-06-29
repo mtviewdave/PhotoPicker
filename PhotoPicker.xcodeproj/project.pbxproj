@@ -157,7 +157,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0630;
-				ORGANIZATIONNAME = "David Schreiber";
+				ORGANIZATIONNAME = "Metebelis Labs LLC";
 				TargetAttributes = {
 					0A8157F31B41C06C003CD9DF = {
 						CreatedOnToolsVersion = 6.3.2;
