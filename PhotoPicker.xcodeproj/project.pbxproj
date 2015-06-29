@@ -13,6 +13,8 @@
 		0A8158011B41C06C003CD9DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A8158001B41C06C003CD9DF /* Images.xcassets */; };
 		0A8158041B41C06C003CD9DF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8158021B41C06C003CD9DF /* LaunchScreen.xib */; };
 		0A8158101B41C06C003CD9DF /* PhotoPickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81580F1B41C06C003CD9DF /* PhotoPickerTests.swift */; };
+		0A81581B1B41C9F4003CD9DF /* ICPhotoAlbumAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81581A1B41C9F4003CD9DF /* ICPhotoAlbumAccess.swift */; };
+		0A81581D1B41CA36003CD9DF /* ICAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81581C1B41CA36003CD9DF /* ICAlertView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		0A8158091B41C06C003CD9DF /* PhotoPickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoPickerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A81580E1B41C06C003CD9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A81580F1B41C06C003CD9DF /* PhotoPickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerTests.swift; sourceTree = "<group>"; };
+		0A81581A1B41C9F4003CD9DF /* ICPhotoAlbumAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ICPhotoAlbumAccess.swift; path = Util/ICPhotoAlbumAccess.swift; sourceTree = "<group>"; };
+		0A81581C1B41CA36003CD9DF /* ICAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ICAlertView.swift; path = Util/ICAlertView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		0A8157F61B41C06C003CD9DF /* PhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
+				0A8158191B41C9DC003CD9DF /* Util */,
 				0A8157F91B41C06C003CD9DF /* AppDelegate.swift */,
 				0A8157FB1B41C06C003CD9DF /* ViewController.swift */,
 				0A8157FD1B41C06C003CD9DF /* Main.storyboard */,
@@ -110,6 +115,15 @@
 				0A81580E1B41C06C003CD9DF /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0A8158191B41C9DC003CD9DF /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				0A81581A1B41C9F4003CD9DF /* ICPhotoAlbumAccess.swift */,
+				0A81581C1B41CA36003CD9DF /* ICAlertView.swift */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +227,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A8157FC1B41C06C003CD9DF /* ViewController.swift in Sources */,
+				0A81581B1B41C9F4003CD9DF /* ICPhotoAlbumAccess.swift in Sources */,
 				0A8157FA1B41C06C003CD9DF /* AppDelegate.swift in Sources */,
+				0A81581D1B41CA36003CD9DF /* ICAlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
