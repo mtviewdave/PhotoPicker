@@ -15,6 +15,9 @@ protocol ICTouchDetectorViewDelegate {
     func touchEnded(sender : ICTouchDetectorView,pointInDetectorView:CGPoint)
 }
 
+// This is placed on top of the scroll view
+// It detects touches, determines if the touch should be 
+// handled by the scroll view. If not, it handles the touch.
 class ICTouchDetectorView: UIView {
     var touchTrackingInProgress = false
     
@@ -34,6 +37,9 @@ class ICTouchDetectorView: UIView {
         self.init(frame:CGRectMake(0, 0, 1, 1))
     }
     
+    // pointInside() is true if we should be handling this touch, and
+    // not really about whether the point is "inside" this
+    // view. We let the delegate decide if the touch should be handled
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if touchTrackingInProgress {
             return true
@@ -46,9 +52,11 @@ class ICTouchDetectorView: UIView {
                 return true
             }
         }
+        // Touch will handled by the scroll view
         return false
     }
     
+    // If a touch is to be handled, it will be handled by these methods
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
         if let touch = touches.first as? UITouch,let delegate = delegate {

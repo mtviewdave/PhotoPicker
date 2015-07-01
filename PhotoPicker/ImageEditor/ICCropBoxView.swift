@@ -10,6 +10,8 @@ import UIKit
 
 let ICCropBoxViewMargin = CGFloat(3)
 
+// View that represents a crop box
+// It just handles the rendering.
 class ICCropBoxView: UIView {
     
     let margin = ICCropBoxViewMargin
@@ -25,6 +27,9 @@ class ICCropBoxView: UIView {
         super.init(coder: aDecoder)
     }
     
+    
+    // The "interior lines" are the interior grid that appears
+    // when the box is being resized.
     convenience init(showInteriorLines : Bool) {
         self.init(frame:CGRectMake(0, 0, 0,0))
         self.showInteriorLines = showInteriorLines
@@ -33,9 +38,8 @@ class ICCropBoxView: UIView {
         self.setNeedsDisplay()
     }
 
+    // Draw the view
     override func drawRect(rect: CGRect) {
-        //super.drawRect(rect)
-        
         let path = CGPathCreateMutable()
         let width = self.bounds.width
         let interiorWidth = width - 2*margin
@@ -43,6 +47,7 @@ class ICCropBoxView: UIView {
         let interiorHeight = height - 2*margin
         let context = UIGraphicsGetCurrentContext()
 
+        // Outer box
         CGContextSetLineWidth(context, 0.5)
         CGContextMoveToPoint(context, margin, margin)
         CGContextAddLineToPoint(context, width-margin, margin)
@@ -50,6 +55,7 @@ class ICCropBoxView: UIView {
         CGContextAddLineToPoint(context, margin, height-margin)
         CGContextAddLineToPoint(context, margin, margin)
 
+        // Interior grid if requested
         if showInteriorLines {
             CGContextMoveToPoint(context, margin+interiorWidth/3, margin)
             CGContextAddLineToPoint(context, margin+interiorWidth/3, interiorHeight+margin)
@@ -71,7 +77,7 @@ class ICCropBoxView: UIView {
         CGContextSetLineWidth(context, 0)
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
 
-        // Handles on the corners
+        // Draw handles on the corners
         
         // Top-left
         CGContextFillRect(context, CGRectMake(0, 0, margin, handlesSize)) // Down
