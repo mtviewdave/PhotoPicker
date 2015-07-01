@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A6A88B71B434051003DCF71 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A6A88B61B434051003DCF71 /* AssetsLibrary.framework */; };
+		0A6A88B91B434057003DCF71 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A6A88B81B434057003DCF71 /* Photos.framework */; };
+		0A6A88BF1B4344EE003DCF71 /* ICCropBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6A88BB1B4344EE003DCF71 /* ICCropBoxView.swift */; };
+		0A6A88C01B4344EE003DCF71 /* ICImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6A88BC1B4344EE003DCF71 /* ICImageEditViewController.swift */; };
+		0A6A88C11B4344EE003DCF71 /* ICImageEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6A88BD1B4344EE003DCF71 /* ICImageEditViewController.xib */; };
+		0A6A88C21B4344EE003DCF71 /* ICTouchDetectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6A88BE1B4344EE003DCF71 /* ICTouchDetectorView.swift */; };
+		0A6A88C81B43474B003DCF71 /* RotateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6A88C51B43474B003DCF71 /* RotateButton.png */; };
+		0A6A88C91B43474B003DCF71 /* RotateButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6A88C61B43474B003DCF71 /* RotateButton@2x.png */; };
+		0A6A88CA1B43474B003DCF71 /* RotateButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6A88C71B43474B003DCF71 /* RotateButton@3x.png */; };
 		0A8157FA1B41C06C003CD9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8157F91B41C06C003CD9DF /* AppDelegate.swift */; };
 		0A8157FC1B41C06C003CD9DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8157FB1B41C06C003CD9DF /* ViewController.swift */; };
 		0A8157FF1B41C06C003CD9DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A8157FD1B41C06C003CD9DF /* Main.storyboard */; };
@@ -28,6 +37,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A6A88B61B434051003DCF71 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		0A6A88B81B434057003DCF71 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		0A6A88BB1B4344EE003DCF71 /* ICCropBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICCropBoxView.swift; sourceTree = "<group>"; };
+		0A6A88BC1B4344EE003DCF71 /* ICImageEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICImageEditViewController.swift; sourceTree = "<group>"; };
+		0A6A88BD1B4344EE003DCF71 /* ICImageEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICImageEditViewController.xib; sourceTree = "<group>"; };
+		0A6A88BE1B4344EE003DCF71 /* ICTouchDetectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICTouchDetectorView.swift; sourceTree = "<group>"; };
+		0A6A88C51B43474B003DCF71 /* RotateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RotateButton.png; sourceTree = "<group>"; };
+		0A6A88C61B43474B003DCF71 /* RotateButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RotateButton@2x.png"; sourceTree = "<group>"; };
+		0A6A88C71B43474B003DCF71 /* RotateButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RotateButton@3x.png"; sourceTree = "<group>"; };
 		0A8157F41B41C06C003CD9DF /* PhotoPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8157F81B41C06C003CD9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A8157F91B41C06C003CD9DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A6A88B91B434057003DCF71 /* Photos.framework in Frameworks */,
+				0A6A88B71B434051003DCF71 /* AssetsLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,9 +80,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A6A88BA1B4344EE003DCF71 /* ImageEditor */ = {
+			isa = PBXGroup;
+			children = (
+				0A6A88BB1B4344EE003DCF71 /* ICCropBoxView.swift */,
+				0A6A88BE1B4344EE003DCF71 /* ICTouchDetectorView.swift */,
+				0A6A88BC1B4344EE003DCF71 /* ICImageEditViewController.swift */,
+				0A6A88BD1B4344EE003DCF71 /* ICImageEditViewController.xib */,
+			);
+			path = ImageEditor;
+			sourceTree = "<group>";
+		};
+		0A6A88C31B43474B003DCF71 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0A6A88C41B43474B003DCF71 /* Buttons */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		0A6A88C41B43474B003DCF71 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				0A6A88C51B43474B003DCF71 /* RotateButton.png */,
+				0A6A88C61B43474B003DCF71 /* RotateButton@2x.png */,
+				0A6A88C71B43474B003DCF71 /* RotateButton@3x.png */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		0A8157EB1B41C06C003CD9DF = {
 			isa = PBXGroup;
 			children = (
+				0A6A88B81B434057003DCF71 /* Photos.framework */,
+				0A6A88B61B434051003DCF71 /* AssetsLibrary.framework */,
 				0A8157F61B41C06C003CD9DF /* PhotoPicker */,
 				0A81580C1B41C06C003CD9DF /* PhotoPickerTests */,
 				0A8157F51B41C06C003CD9DF /* Products */,
@@ -81,6 +132,8 @@
 		0A8157F61B41C06C003CD9DF /* PhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
+				0A6A88C31B43474B003DCF71 /* Assets */,
+				0A6A88BA1B4344EE003DCF71 /* ImageEditor */,
 				0A8158191B41C9DC003CD9DF /* Util */,
 				0A8157F91B41C06C003CD9DF /* AppDelegate.swift */,
 				0A8157FB1B41C06C003CD9DF /* ViewController.swift */,
@@ -207,8 +260,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A8157FF1B41C06C003CD9DF /* Main.storyboard in Resources */,
+				0A6A88CA1B43474B003DCF71 /* RotateButton@3x.png in Resources */,
+				0A6A88C91B43474B003DCF71 /* RotateButton@2x.png in Resources */,
 				0A8158041B41C06C003CD9DF /* LaunchScreen.xib in Resources */,
+				0A6A88C11B4344EE003DCF71 /* ICImageEditViewController.xib in Resources */,
 				0A8158011B41C06C003CD9DF /* Images.xcassets in Resources */,
+				0A6A88C81B43474B003DCF71 /* RotateButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +284,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A8157FC1B41C06C003CD9DF /* ViewController.swift in Sources */,
+				0A6A88C21B4344EE003DCF71 /* ICTouchDetectorView.swift in Sources */,
 				0A81581B1B41C9F4003CD9DF /* ICPhotoAlbumAccess.swift in Sources */,
+				0A6A88C01B4344EE003DCF71 /* ICImageEditViewController.swift in Sources */,
+				0A6A88BF1B4344EE003DCF71 /* ICCropBoxView.swift in Sources */,
 				0A8157FA1B41C06C003CD9DF /* AppDelegate.swift in Sources */,
 				0A81581D1B41CA36003CD9DF /* ICAlertView.swift in Sources */,
 			);
@@ -357,6 +417,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhotoPicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -367,6 +428,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhotoPicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -425,6 +487,7 @@
 				0A8158151B41C06C003CD9DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A8158161B41C06C003CD9DF /* Build configuration list for PBXNativeTarget "PhotoPickerTests" */ = {
 			isa = XCConfigurationList;
@@ -433,6 +496,7 @@
 				0A8158181B41C06C003CD9DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
