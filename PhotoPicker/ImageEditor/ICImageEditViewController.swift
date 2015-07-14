@@ -14,8 +14,12 @@ protocol ICImageEditViewControllerDelegate {
 }
 
 // Image editor
-// Takes as input an image to editr
+// Takes as input an image to edit
 // Returns the edited image via a delegate callback
+//
+// The editor exists in two modes: an edit mode, where the user can rotate, scale
+// and crop the image, and a display mode where the user can see the result of 
+// their editing. The editor starts in display mode.
 class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDetectorViewDelegate {
     var delegate : ICImageEditViewControllerDelegate?
 
@@ -37,7 +41,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     var minZoomScale = CGFloat(1)
     
     let originalImage : UIImage // As received from the caller
-    var currentImage : UIImage  // Rotated version of currentImage
+    var currentImage : UIImage  // Rotated version of originalImage
     var croppedImage : UIImage  // Rotated and cropped
     
     var croppedImageView = UIImageView()
@@ -57,7 +61,8 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     // Shown in edit mode
     var cropBoxOverlay = ICCropBoxView(showInteriorLines: false)
     
-    // Has interior grid. Shown when user is adjusting crop box size
+    // Has interior grid. Shown instead of cropBoxOverlay 
+    // when user is adjusting crop box size
     var cropBoxOverlayWithLines = ICCropBoxView(showInteriorLines: true)
     
     var cropFrame = CGRect()
@@ -96,8 +101,6 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.cropBoxOverlay.alpha = 0
-        self.cropBoxOverlayWithLines.alpha = 0
         self.view.addSubview(croppedImageView)
         croppedImageView.hidden = true
         
@@ -111,11 +114,15 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
         
         scrollView.addSubview(imageView)
 
-        setup(true)
+        setup(firstTime:true)
         
+        
+        self.cropBoxOverlay.alpha = 0
         self.view.addSubview(cropBoxOverlay)
-        self.view.addSubview(cropBoxOverlayWithLines)
+        
         cropBoxOverlayWithLines.hidden = true
+        self.view.addSubview(cropBoxOverlayWithLines)
+        
         
         self.view.addSubview(touchDetectorView)
         scrollView.scrollEnabled = false
@@ -196,7 +203,6 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
             return
         }
         inEditMode = false
-        
         
         // Compute the cropped image view frame
         let croppedImageViewFrame = croppedImageView.frame
@@ -308,7 +314,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     // Set up an image (either first time, or after a rotation)
     // Sets up a new image view for the image, and sets up the
     // scroll view to properly handle it
-    func setup(firstTime : Bool) {
+    func setup(#firstTime : Bool) {
         let oldScale = scrollView.zoomScale
         let oldMinScale = scrollView.minimumZoomScale
         var containerWidth = CGFloat(0)
@@ -336,8 +342,8 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
             minZoomScale*(containerHeight-currentImage.size.height)/2.0,
             minZoomScale*(containerWidth-currentImage.size.width)/2.0,
             minZoomScale*(containerHeight-currentImage.size.height)/2.0 + bottomContainerView.bounds.height ,
-            minZoomScale*(containerWidth-currentImage.size.width)/2.0)
-
+            minZoomScale*(containerWidth-currentImage.size.width)/2.0
+        )
 
         let imageSize = currentImage.size
 
@@ -348,24 +354,16 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
         scrollView.maximumZoomScale = newZoomScale
         scrollView.zoomScale = newZoomScale
     }
-   
-    func scrollViewDidZoom(scrollView: UIScrollView) {
-        computeVisibleRect()
-    }
-    
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return imageView
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        computeVisibleRect()
-    }
     
     //
     // Rotation handling
     //
     func rotateImage(origImage : UIImage,rotationInRadians : CGFloat) -> UIImage {
         let origSize = originalImage.size
+        
+        // Used to compute the original image's frame should look like after we apply
+        // a rotation transform
+        // Not as clean as pure math, but easier to maintain and understand
         let sizerBox = UIView(frame: CGRectMake(0, 0, originalImage.size.width, originalImage.size.height))
         sizerBox.transform = CGAffineTransformMakeRotation(rotationInRadians)
         let rotatedSize = sizerBox.frame.size
@@ -393,7 +391,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     func makeCurrentImageFromRotatingOriginalImage(degrees : Int) {
         self.currentImage = self.rotateImage(self.originalImage, rotationInRadians: self.deg2rad(degrees))
         
-        self.setup(false)
+        self.setup(firstTime:false)
         self.scrollView.minimumZoomScale = minZoomScale
         self.scrollView.maximumZoomScale = 1
         updateCropBox(currentMaxCropRect)
@@ -511,11 +509,11 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
         return true
     }
     
-    let minCropBoxDimension = CGFloat(60)
     
     // Adjust the size of the crop box to match the delta between
     // the user's last touch event and the current touch event positions
     func adjustCropBox(point : CGPoint) {
+        let minCropBoxDimension = CGFloat(60)
         let deltaX = point.x - lastLocation.x
         let deltaY = point.y - lastLocation.y
         var frame = cropFrame
@@ -550,11 +548,24 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
                 self.cropBoxOverlay.setNeedsDisplay()
         })
     }
-
+    
+    
+    // Required UIScrollViewDelegate stuff
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        computeVisibleRect()
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        computeVisibleRect()
+    }
     
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView!, atScale scale: CGFloat) {
         confineCropBox()
-
+        
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -565,7 +576,6 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         confineCropBox()
-
     }
     
     // Actions
@@ -581,7 +591,6 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
         }
     }
 
-    
     @IBAction func cancelTapped() {
         if inEditMode {
             // Switch to non-Edit mode

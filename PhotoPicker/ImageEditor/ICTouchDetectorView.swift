@@ -6,6 +6,11 @@
 //  Copyright (c) 2015 Metebelis Labs LLC. All rights reserved.
 //
 
+// This is a view that sits on top of the image editor's scrollview
+// and handles touch events that are intended for the crop box (which
+// is defined as touch events that fall on the edge of the crop box,
+// plus/minus a margin)
+
 import UIKit
 
 protocol ICTouchDetectorViewDelegate {
