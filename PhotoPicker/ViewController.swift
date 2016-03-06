@@ -38,7 +38,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate,UINaviga
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = .PhotoLibrary
-                imagePicker.mediaTypes = [kUTTypeImage]
+                imagePicker.mediaTypes = [kUTTypeImage as String]
                 self.presentViewController(imagePicker, animated: true, completion: nil)
                 self.imagePicker = imagePicker
             }
@@ -46,7 +46,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate,UINaviga
     }
     
     // UIImagePickerControllerDelegate
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let imageEditor = ICImageEditViewController(imageToEdit:chosenImage)
             imageEditor.delegate = self

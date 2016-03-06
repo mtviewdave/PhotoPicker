@@ -35,7 +35,7 @@ class ICCropBoxView: UIView {
         self.setNeedsDisplay()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -52,7 +52,6 @@ class ICCropBoxView: UIView {
 
     // Draw the view
     override func drawRect(rect: CGRect) {
-        let path = CGPathCreateMutable()
         let width = self.bounds.width
         let interiorWidth = width - 2*margin
         let height = self.bounds.height

@@ -105,7 +105,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
         super.init(nibName: "ICImageEditViewController", bundle: nil)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoder not supported")
     }
 
@@ -188,7 +188,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
         // Animate so that the cropped view slides into the spot
         // it corresponds to in the whole image, so that it looks like
         // the rest of the image is appearing
-        UIView.animateWithDuration(0.1, delay: 0, options: .AllowUserInteraction | .CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(0.1, delay: 0, options: [.AllowUserInteraction, .CurveEaseInOut], animations: { () -> Void in
             self.croppedImageView.frame = self.cropFrame
             }) { (done) -> Void in
                 UIView.animateWithDuration(self.fadeTransitionTime, delay: 0, options: .AllowUserInteraction, animations: { () -> Void in
@@ -259,7 +259,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
                 self.resetButton.hidden = true
                 self.imageView.hidden = true
                 self.scrollView.hidden = true
-                UIView.animateWithDuration(self.moveTransitionTime, delay: 0, options: .AllowUserInteraction | .CurveEaseInOut, animations: { () -> Void in
+                UIView.animateWithDuration(self.moveTransitionTime, delay: 0, options: [.AllowUserInteraction, .CurveEaseInOut], animations: { () -> Void in
                     self.croppedImageView.frame = centeredCroppedImageViewFrame
                     }) { (done) -> Void in
                 }
@@ -290,14 +290,15 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     // cropped, rotated image, stores it, and updates "croppedImageView" to
     // display it
     func updateCroppedImage() {
-        var frame = self.view.convertRect(cropFrame, toView: imageView)
+        let frame = self.view.convertRect(cropFrame, toView: imageView)
         
-        let imageRef = CGImageCreateWithImageInRect(currentImage.CGImage, frame)
-        croppedImage = UIImage(CGImage: imageRef)!
-        
-        croppedImageView.frame = cropFrame
-        croppedImageView.image = croppedImage
-        croppedImageView.hidden = false
+        if let imageRef = CGImageCreateWithImageInRect(currentImage.CGImage, frame) {
+            croppedImage = UIImage(CGImage: imageRef)
+            
+            croppedImageView.frame = cropFrame
+            croppedImageView.image = croppedImage
+            croppedImageView.hidden = false
+        }
     }
 
     // Compute the maximum practical bounds of the crop box
@@ -325,9 +326,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     // Set up an image (either first time, or after a rotation)
     // Sets up a new image view for the image, and sets up the
     // scroll view to properly handle it
-    func setup(#firstTime : Bool) {
-        let oldScale = scrollView.zoomScale
-        let oldMinScale = scrollView.minimumZoomScale
+    func setup(firstTime firstTime : Bool) {
         var containerWidth = CGFloat(0)
         var containerHeight =  CGFloat(0)
         if(maxCropRectForScreen.width/maxCropRectForScreen.height < currentImage.size.width / currentImage.size.height) {
@@ -338,16 +337,12 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
             containerWidth = containerHeight*(maxCropRectForScreen.width/maxCropRectForScreen.height)
         }
         
-        var frame = CGRectMake((containerWidth-currentImage.size.width)/2.0,(containerHeight-currentImage.size.height)/2.0,currentImage.size.width,currentImage.size.height)
-     
         imageView.removeFromSuperview()
         imageView = UIImageView(frame: CGRectMake(0, 0, currentImage.size.width, currentImage.size.height))
         imageView.image = currentImage
         scrollView.addSubview(imageView)
         let screenBounds = UIScreen.mainScreen().bounds
         minZoomScale = min(screenBounds.width/containerWidth,screenBounds.height/containerHeight)
-
-        let leftInset = minZoomScale * (containerWidth-currentImage.size.width)/2.0
         
         scrollView.contentInset = UIEdgeInsetsMake(
             minZoomScale*(containerHeight-currentImage.size.height)/2.0,
@@ -355,9 +350,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
             minZoomScale*(containerHeight-currentImage.size.height)/2.0 + bottomContainerView.bounds.height ,
             minZoomScale*(containerWidth-currentImage.size.width)/2.0
         )
-
-        let imageSize = currentImage.size
-
+        
         let newZoomScale = minZoomScale
         
         // Set up the zoom scale and disable zooming until the user enters edit mode
@@ -466,7 +459,6 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     }
     
     func touchEnded(sender : ICTouchDetectorView,pointInDetectorView: CGPoint) {
-        let point = sender.convertPoint(pointInDetectorView, toView: self.view)
         movingTopEdge = false
         movingBottomEdge = false
         movingLeftEdge = false
@@ -574,7 +566,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
         computeVisibleRect()
     }
     
-    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView!, atScale scale: CGFloat) {
+    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
         confineCropBox()
         
     }

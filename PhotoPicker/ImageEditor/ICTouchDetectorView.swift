@@ -46,7 +46,7 @@ class ICTouchDetectorView: UIView {
         self.backgroundColor = UIColor.clearColor()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -61,7 +61,6 @@ class ICTouchDetectorView: UIView {
         if touchTrackingInProgress {
             return true
         }
-        let location = convertPoint(point, toView: self.superview)
         if let delegate = delegate {
             
             if delegate.shouldHandleTouch(self, pointInDetectorView: point) {
@@ -74,45 +73,43 @@ class ICTouchDetectorView: UIView {
     }
     
     // If a touch is to be handled, it will be handled by these methods
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
-        if let touch = touches.first as? UITouch,let delegate = delegate {
-            delegate.touchBegan(self,pointInDetectorView:touch.locationInView(self))
+        if let touch = touches.first as UITouch! {
+            delegate?.touchBegan(self,pointInDetectorView:touch.locationInView(self))
             touchTrackingInProgress = true
         }
     }
     
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesMoved(touches, withEvent: event)
         if !touchTrackingInProgress {
             return
         }
         
-        for touchObj in touches {
-            if let touch = touchObj as? UITouch {
-                delegate?.touchMoved(self,pointInDetectorView:touch.locationInView(self))
-            }
+        for touch in touches {
+            delegate?.touchMoved(self,pointInDetectorView:touch.locationInView(self))
         }
     }
     
-    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
         super.touchesCancelled(touches, withEvent: event)
         if !touchTrackingInProgress {
             return
         }
-        if let touch = touches.first as? UITouch {
+        if let touch = touches?.first as UITouch! {
             delegate?.touchEnded(self,pointInDetectorView:touch.locationInView(self))
         }
         touchTrackingInProgress = false
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         if !touchTrackingInProgress {
             return
         }
-        if let touch = touches.first as? UITouch {
+        if let touch = touches.first as UITouch! {
             delegate?.touchEnded(self,pointInDetectorView:touch.locationInView(self))
         }
         touchTrackingInProgress = false
