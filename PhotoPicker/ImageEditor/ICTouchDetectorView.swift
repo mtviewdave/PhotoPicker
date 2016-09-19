@@ -93,12 +93,12 @@ class ICTouchDetectorView: UIView {
         }
     }
     
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesCancelled(touches, withEvent: event)
         if !touchTrackingInProgress {
             return
         }
-        if let touch = touches?.first as UITouch! {
+        if let touch = touches.first as UITouch! {
             delegate?.touchEnded(self,pointInDetectorView:touch.locationInView(self))
         }
         touchTrackingInProgress = false

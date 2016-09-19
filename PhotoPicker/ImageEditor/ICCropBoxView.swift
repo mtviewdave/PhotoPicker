@@ -59,52 +59,52 @@ class ICCropBoxView: UIView {
         let context = UIGraphicsGetCurrentContext()
 
         // Outer box
-        CGContextSetLineWidth(context, 0.5)
-        CGContextMoveToPoint(context, margin, margin)
-        CGContextAddLineToPoint(context, width-margin, margin)
-        CGContextAddLineToPoint(context, width-margin, height-margin)
-        CGContextAddLineToPoint(context, margin, height-margin)
-        CGContextAddLineToPoint(context, margin, margin)
+        CGContextSetLineWidth(context!, 0.5)
+        CGContextMoveToPoint(context!, margin, margin)
+        CGContextAddLineToPoint(context!, width-margin, margin)
+        CGContextAddLineToPoint(context!, width-margin, height-margin)
+        CGContextAddLineToPoint(context!, margin, height-margin)
+        CGContextAddLineToPoint(context!, margin, margin)
 
         // Interior grid if requested
         if showInteriorLines {
-            CGContextMoveToPoint(context, margin+interiorWidth/3, margin)
-            CGContextAddLineToPoint(context, margin+interiorWidth/3, interiorHeight+margin)
+            CGContextMoveToPoint(context!, margin+interiorWidth/3, margin)
+            CGContextAddLineToPoint(context!, margin+interiorWidth/3, interiorHeight+margin)
 
-            CGContextMoveToPoint(context, margin+2*interiorWidth/3, margin)
-            CGContextAddLineToPoint(context, margin+2*interiorWidth/3, interiorHeight+margin)
+            CGContextMoveToPoint(context!, margin+2*interiorWidth/3, margin)
+            CGContextAddLineToPoint(context!, margin+2*interiorWidth/3, interiorHeight+margin)
 
-            CGContextMoveToPoint(context, margin, margin+interiorHeight/3)
-            CGContextAddLineToPoint(context, margin+interiorWidth, margin+interiorHeight/3)
+            CGContextMoveToPoint(context!, margin, margin+interiorHeight/3)
+            CGContextAddLineToPoint(context!, margin+interiorWidth, margin+interiorHeight/3)
             
-            CGContextMoveToPoint(context, margin, margin+2*interiorHeight/3)
-            CGContextAddLineToPoint(context, margin+interiorWidth, margin+2*interiorHeight/3)
+            CGContextMoveToPoint(context!, margin, margin+2*interiorHeight/3)
+            CGContextAddLineToPoint(context!, margin+interiorWidth, margin+2*interiorHeight/3)
             
 
         }
-        CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor)
-        CGContextStrokePath(context)
+        CGContextSetStrokeColorWithColor(context!, UIColor.whiteColor().CGColor)
+        CGContextStrokePath(context!)
         
-        CGContextSetLineWidth(context, 0)
-        CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+        CGContextSetLineWidth(context!, 0)
+        CGContextSetFillColorWithColor(context!, UIColor.whiteColor().CGColor)
 
         // Draw handles on the corners
         
         // Top-left
-        CGContextFillRect(context, CGRectMake(0, 0, margin, handlesSize)) // Down
-        CGContextFillRect(context, CGRectMake(0, 0, handlesSize, margin)) // Across
+        CGContextFillRect(context!, CGRectMake(0, 0, margin, handlesSize)) // Down
+        CGContextFillRect(context!, CGRectMake(0, 0, handlesSize, margin)) // Across
 
         // Top-right
-        CGContextFillRect(context, CGRectMake(width-margin, 0, margin, handlesSize))  // Down
-        CGContextFillRect(context, CGRectMake(width-handlesSize, 0, handlesSize, margin)) // Across
+        CGContextFillRect(context!, CGRectMake(width-margin, 0, margin, handlesSize))  // Down
+        CGContextFillRect(context!, CGRectMake(width-handlesSize, 0, handlesSize, margin)) // Across
         
         // Bottom-right
-        CGContextFillRect(context, CGRectMake(width-margin, height-handlesSize, margin, handlesSize))  // Down
-        CGContextFillRect(context, CGRectMake(width-handlesSize, height-margin, handlesSize, margin)) // Across
+        CGContextFillRect(context!, CGRectMake(width-margin, height-handlesSize, margin, handlesSize))  // Down
+        CGContextFillRect(context!, CGRectMake(width-handlesSize, height-margin, handlesSize, margin)) // Across
         
         // Bottom-left
-        CGContextFillRect(context, CGRectMake(0, height-handlesSize, margin, handlesSize))  // Down
-        CGContextFillRect(context, CGRectMake(0, height-margin, handlesSize, margin)) // Across
+        CGContextFillRect(context!, CGRectMake(0, height-handlesSize, margin, handlesSize))  // Down
+        CGContextFillRect(context!, CGRectMake(0, height-margin, handlesSize, margin)) // Across
         
         
     }

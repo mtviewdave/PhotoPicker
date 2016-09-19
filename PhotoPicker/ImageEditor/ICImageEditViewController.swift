@@ -292,7 +292,7 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
     func updateCroppedImage() {
         let frame = self.view.convertRect(cropFrame, toView: imageView)
         
-        if let imageRef = CGImageCreateWithImageInRect(currentImage.CGImage, frame) {
+        if let imageRef = CGImageCreateWithImageInRect(currentImage.CGImage!, frame) {
             croppedImage = UIImage(CGImage: imageRef)
             
             croppedImageView.frame = cropFrame
@@ -376,10 +376,10 @@ class ICImageEditViewController: UIViewController,UIScrollViewDelegate,ICTouchDe
         
         let context = UIGraphicsGetCurrentContext()
         
-        CGContextTranslateCTM(context, rotatedSize.width/2, rotatedSize.height/2)
-        CGContextRotateCTM(context, rotationInRadians)
-        CGContextScaleCTM(context, 1.0, -1.0)
-        CGContextDrawImage(context, CGRectMake(-origSize.width/2, -origSize.height/2, origSize.width, origSize.height), originalImage.CGImage)
+        CGContextTranslateCTM(context!, rotatedSize.width/2, rotatedSize.height/2)
+        CGContextRotateCTM(context!, rotationInRadians)
+        CGContextScaleCTM(context!, 1.0, -1.0)
+        CGContextDrawImage(context!, CGRectMake(-origSize.width/2, -origSize.height/2, origSize.width, origSize.height), originalImage.CGImage!)
         
         let result = UIGraphicsGetImageFromCurrentImageContext()!
         
